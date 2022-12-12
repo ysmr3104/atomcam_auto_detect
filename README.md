@@ -48,7 +48,7 @@ https://github.com/kin-hasegawa/meteor-detect
 git clone https://github.com/kin-hasegawa/meteor-detect.git
 cd meteor-detect
 EOF > requirements.txt
-heredoc> numpy
+numpy
 opencv-python
 pafy
 youtube_dl
