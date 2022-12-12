@@ -1,5 +1,6 @@
 # atomcam_auto_detect
 ATOM Cam Swingで撮影した流星を含む動画をダウンロードして検知するのを自動化したくて自分用に作成しました。  
+ホントはPythonで全部書きたかったけどwgetを使っちゃってるのでBashになってます。（meteor-detect部分はPython）
 ノーサポートですが、使ってみたい方はどうぞ。  
   
 以下、自分メモを兼ねて。  
