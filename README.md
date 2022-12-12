@@ -6,12 +6,11 @@ ATOM Cam Swingで撮影した流星を含む動画をダウンロードして検
 
 ## atomcam_auto_detect.sh
 atomcam_toolsとmeteor-detectを利用して動画転送から流星検出・検出動画結合・比較明合成まで一気通貫に実行します。
-必要なもの
+必要なもの（それぞれ必要なものの準備方法は後述）
 - atomcam_tools
 - meteor-detect
 - ffmpeg
 - ImageMagik
-※それぞれ必要なものの準備方法は後述
 
 ## lighten_composition.sh
 JPGファイルの比較明合成するところだけ切り出したシェルスクリプトです。
@@ -70,3 +69,18 @@ brew install ffmpeg
 ```
 brew install imagemagick
 ```
+
+
+# 使い方
+atomcam_auto_detect.shの冒頭に設定箇所があるので環境に合わせて修正（そのうち別ファイルにする）
+
+朝になって昨夜22時〜今朝06時の動画を処理する
+```
+atomcam_auto_detect.sh
+```
+
+日にちが過ぎて指定日付とその前日を処理する場合
+```
+atomcam_auto_detect.sh --date=20221201
+```
+この場合は2022-11-30 22時〜2022-12-01 06時
