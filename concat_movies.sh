@@ -1,6 +1,8 @@
 #!/bin/sh
-rm -rf _detected.mp4 detected.txt
+file_detected_mov="_detected.mp4"
+file_detect_list="detected.txt"
+rm -rf ${file_detected_mov} ${file_detect_list}
 find -s . -type f -name "*.mp4" | perl -pe 's/^\.\//file /g' > detected.txt
-ffmpeg -y -f concat  -i detected.txt -c copy tmp_detected.mp4
-ffmpeg -y -i tmp_detected.mp4 -f mp4 -vcodec libx264 _detected.mp4
-rm -rf tmp_detected.mp4
+ffmpeg -y -f concat  -i detected.txt -c copy tmp${file_detected_mov}
+ffmpeg -y -i tmp${file_detected_mov} -f mp4 -vcodec libx264 ${file_detected_mov}
+rm -rf tmp${file_detected_mov}
