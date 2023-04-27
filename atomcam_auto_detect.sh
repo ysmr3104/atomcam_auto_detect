@@ -18,8 +18,10 @@ http_pass='passwd'
 atom_dirctory="sdcard/record"
 time_out=10
 retry_count=3
-target_hour_prev_date="22 23"
-target_hour_curr_date="00 01 02 03 04 05"
+#target_hour_prev_date="22 23"
+#target_hour_curr_date="00 01 02 03 04"
+target_hour_prev_date="23"
+target_hour_curr_date="00"
 
 # ------------------------------------------------------------------------------
 # 引数制御
@@ -97,8 +99,8 @@ then
 else
     target_curr_date=`date '+%Y%m%d'`
 fi
-# 前日の日付を取得
-target_prev_date=`date -v-1d -j -f "%Y%m%d" "${target_curr_date}" +"%Y%m%d"`
+# 前日の日付を取得（OS互換のためPerlで取得）
+target_prev_date=`perl -MTime::Piece -le 'print +(Time::Piece->strptime($ARGV[0], "%Y%m%d") - 86400)->strftime("%Y%m%d");' ${target_curr_date}`
 
 # ------------------------------------------------------------------------------
 # 検出対象時間の取得
@@ -186,7 +188,7 @@ echo "□　- 出力画像ファイル：${atomcam_directory}/${target_curr_date
 echo "□"
 sleep 10
 
-target_files=`find -s ${atomcam_directory}/${target_curr_date} -type f -name "*.jpg" | grep -v ${file_lighten} | perl -pe 's/\n/ /g'`
+target_files=`find ${atomcam_directory}/${target_curr_date} -type f -name "*.jpg" | sort | grep -v ${file_lighten} | perl -pe 's/\n/ /g'`
 convert -colorspace rgb -size 1920x1080 xc:black ${atomcam_directory}/${target_curr_date}/${file_lighten}
 for target_file in ${target_files}
 do
@@ -206,8 +208,7 @@ echo "□"
 
 # ffmpegの結合が相対パスでないと動作しないため移動
 cd ${atomcam_directory}
-find -s ${target_curr_date} -type f -name "*.mp4" | grep -v ${file_detected_mov} | perl -pe 's/^/file /g' > ${file_detect_list}
-
+find ${target_curr_date} -type f -name "*.mp4" | sort | grep -v ${file_detected_mov} | perl -pe 's/^/file /g' > ${file_detect_list}
 echo "□　- 出力動画リスト："
 cat ${atomcam_directory}/${file_detect_list}
 echo "□"
