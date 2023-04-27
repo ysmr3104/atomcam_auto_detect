@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # ------------------------------------------------------------------------------
 # 環境設定
 # ------------------------------------------------------------------------------
@@ -146,8 +146,8 @@ done
 # ------------------------------------------------------------------------------
 # mp4ファイルリスト作成
 # ------------------------------------------------------------------------------
-find -s ${temp_directory}/${host_name}/${atom_dirctory} \
-    -type f -name "*.mp4" | perl -pe 's/^/file /g' > ${atomcam_directory}/${target_curr_date}/${file_movlist}
+find ${temp_directory}/${host_name}/${atom_dirctory} \
+    -type f -name "*.mp4" | sort | perl -pe 's/^/file /g' > ${atomcam_directory}/${target_curr_date}/${file_movlist}
 
 mov_count=`cat ${atomcam_directory}/${target_curr_date}/${file_movlist} | wc -l`
 echo "□"
